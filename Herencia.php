@@ -1,78 +1,64 @@
 <?php
-
+//Haz una clase padre y una hija (usando un ejemplo con coches) que sirvan para mostrar herencia en php y ver usos con this y parent
 //-------------CLASE PADRE------------------------------
-class Padre{
+class Coche{
 
    public function __construct(
-       private string $nombre,
-       protected string $apellido1,
-       private string $apellido2,
-       private int $edad,
+       private string $marca,
+       protected string $modelo,
+       private int $anio,
     ){}
 
    // Getters
-    public function getNombre(): string {
-         return $this->nombre;
+    public function getMarca(): string {
+         return $this->marca;
     }
-    public function getApellido1(): string {
-         return $this->apellido1;
+    public function getModelo(): string {
+         return $this->modelo;
     }
-    public function getApellido2(): string {
-         return $this->apellido2;
-    }
-    public function getEdad(): int {
-         return $this->edad; 
+    public function getAnio(): int {
+         return $this->anio; 
     }
 
     // Solo incluimos Setters para las propiedades que SÍ pueden cambiar.
-    public function setNombre(string $nombre): void { 
-        $this->nombre = $nombre;
+    public function setMarca(string $marca): void { 
+        $this->marca = $marca;
      }
-    public function setApellido2(string $apellido2): void {
-         $this->apellido2 = $apellido2; 
-    }
-    public function setEdad(int $edad): void {
-         $this->edad = $edad;
+    public function setAnio(int $anio): void {
+         $this->anio = $anio;
     }
 
    public function __tostring(): string {
-     return  "Padre:\n" 
-     . "Nombre: " . $this->getNombre() . "\n"
-     . "Apellido 1: " . $this->getApellido1(). "\n"
-     . "Apellido 2: " . $this->getApellido2() . "\n"
-     . "Edad: " . $this->getEdad() . "\n";
+     return  "Coche:\n" 
+     . "Marca: " . $this->getMarca() . "\n"
+     . "Modelo: " . $this->getModelo(). "\n"
+     . "Año: " . $this->getAnio() . "\n";
     }
 }
-
 //-------------CLASE HEREDERA------------------------------
-class Hijo extends Padre{
+class Deportivo extends Coche{
 
      public function __construct(
-          Padre $padre, 
-          string $nombre, 
-          string $apellido2,
-           int $edad
+          Coche $coche, 
+          string $modelo,
+           int $anio
      ){
-          $apellido1_heredado = $padre->getApellido1();
-          parent::__construct($nombre, $apellido1_heredado, $apellido2, $edad);
+          $marca_heredada = $coche->getMarca();
+          parent::__construct($marca_heredada, $modelo, $anio);
      }
 
     public function __tostring(): string {
-     return  "Hijo (debría heredar apellido 1):\n" 
-     . "Nombre: " . $this->getNombre() . "\n"
-     . "Apellido 1: " . $this->getApellido1() . "\n"
-     . "Apellido 2: " . $this->getApellido2() . "\n"
-     . "Edad: " . $this->getEdad() . "\n";
+      return  "Deportivo:\n" 
+      . "Marca: " . $this->getMarca() . "\n"
+      . "Modelo: " . $this->getModelo(). "\n"
+      . "Año: " . $this->getAnio() . "\n";
     }
 }
+//crear objetos y mostrar comparacion
+$coche1 = new Coche("Toyota", "Corolla", 2020);
+$coche2 = new Deportivo($coche1, "Supra", 2021);   
 
-//-------------PROGRAMA, los hijos no cambian apellido1 y lo heredan del padre------------------------------------
-$padresito = new padre("Pedro", "Gomez", "Guzman", 36);
-echo $padresito;
-
-$hijomio =new hijo($padresito,"Luis","Perez",12);
-echo $hijomio;
-$estenoesbastardo=new hijo($padresito,"Pablo","García", 20);
-echo $estenoesbastardo;
+echo $coche1 . "<br>"; 
+echo $coche2 . "<br>";
 
 ?>

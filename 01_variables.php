@@ -8,6 +8,8 @@
 <body>
 
     <?php 
+        //para levantar un servidor local en terminal: php -S localhost:8000
+        //luego abrir en navegador http://localhost:8000/01_variables.php
 
         // Esto es un comentario de una linea 
         /* esto es un 
@@ -37,8 +39,52 @@
         echo "Constante NOMBRE: " . NOMBRE . "<br>";
         //cerrar recurso
         fclose($VResource);
-        
 
+        //Clase para demostrar objetos con getter y setters y un metodo to string y comparator
+        class Persona {
+            private $nombre;
+            private $edad;
+
+            public function __construct($nombre, $edad) {
+                $this->nombre = $nombre;
+                $this->edad = $edad;
+            }
+
+            public function getNombre() {
+                return $this->nombre;
+            }
+
+            public function setNombre($nombre) {
+                $this->nombre = $nombre;
+            }
+
+            public function getEdad() {
+                return $this->edad;
+            }
+
+            public function setEdad($edad) {
+                $this->edad = $edad;
+            }
+
+            public function __toString() {
+                return "Persona: " . $this->nombre . ", Edad: " . $this->edad;
+            }
+
+            public function compararEdad($otraPersona) {
+                if ($this->edad > $otraPersona->getEdad()) {
+                    return 1;
+                } elseif ($this->edad < $otraPersona->getEdad()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        }
+        //crear objetos y mostrar comparacion
+        $persona1 = new Persona("Ana", 30);
+        $persona2 = new Persona("Luis", 25);   
+        echo $persona1 . "<br>";
+        echo $persona2 . "<br>";
     ?>
 
 </body>
